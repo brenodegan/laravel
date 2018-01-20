@@ -9,7 +9,7 @@ node('php'){
     }
     
     stage('Build'){
-        sh 'composer install --no scripts --prefer-dist --no-dev --ignore-platform-reqs'
+        sh 'composer install --no-scripts --prefer-dist --no-dev --ignore-platform-reqs'
     }
     
     stage('config') {

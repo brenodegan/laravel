@@ -9,24 +9,24 @@ node('php'){
     }
     
     stage('Build'){
-        sh 'composer install --prefer-dist --no-dev --ignore-platform-reqs'
+        sh 'composer install --no scripts --prefer-dist --no-dev --ignore-platform-reqs'
     }
     
     stage('config') {
         parallel(
             'config cache': {
-                sh 'php artisan config:cache'
+                echo 'tarefa paralela 1'
             },
             'config route': {
-                sh 'php artisan'
+                echo 'tarefa palela 2'
             }
         )
     }
     stage('Docker Build') {
-        sh 'docker build -t brenodegan/api:$BUILD_NUMBER .'
+        sh 'docker build -t brenodegan/laravel:$BUILD_NUMBER .'
     }
     
     stage('Docker Ship') {
-        sh 'docker push brenodegan/api:$BUILD_NUMBER'
+        sh 'docker push brenodegan/laravel:$BUILD_NUMBER'
     }
 }
